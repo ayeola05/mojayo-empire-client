@@ -4,7 +4,8 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Header from "./../components/Header";
 import Message from "../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
-import { login } from "../Redux/slices/loginSlice";
+import { login } from "../Redux/slices/userSlice/loginSlice";
+import { getUserDetails } from "../Redux/slices/userSlice/userDetailsSlice";
 
 const Login = ({ location, history }) => {
   window.scrollTo(0, 0);
@@ -39,7 +40,7 @@ const Login = ({ location, history }) => {
     e.preventDefault();
 
     if (!email.includes("@") && !password.length >= 6) return;
-
+    dispatch(getUserDetails("1"));
     dispatch(login({ email, password }));
   };
 

@@ -11,6 +11,13 @@ function App() {
       <Route path="/" element={<HomeScreen />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/search/:keyword" component={HomeScreen} />
+      <Route path="/page/:pagenumber" component={HomeScreen} />
+      <Route
+        path="/search/:keyword/page/:pageNumber"
+        component={HomeScreen}
+        exact
+      />
     </Routes>
   );
 }

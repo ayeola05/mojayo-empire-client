@@ -4,7 +4,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Message from "../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
 import Header from "../components/Header";
-import { register } from "../Redux/slices/registerSlice";
+import { register } from "../Redux/slices/userSlice/registerSlice";
 
 const Register = () => {
   window.scrollTo(0, 0);

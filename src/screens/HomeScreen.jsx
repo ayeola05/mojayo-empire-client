@@ -1,20 +1,22 @@
+import { useParams } from "react-router-dom";
+import ShopSection from "../components/homeComponents/ShopSection";
 import Header from "./../components/Header";
-// import ShopSection from "./../components/homeComponents/ShopSection";
-// import ContactInfo from "./../components/homeComponents/ContactInfo";
-// import CalltoActionSection from "./../components/homeComponents/CalltoActionSection";
-// import Footer from "./../components/Footer";
+import CallToActionSection from "../components/homeComponents/CallToActionSection";
+import ContactInfo from "../components/homeComponents/ContactInfo";
+import Footer from "../components/Footer";
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = () => {
   window.scrollTo(0, 0);
-  //   const keyword = match.params.keyword;
-  //   const pagenumber = match.params.pagenumber;
+  const params = useParams();
+  const keyword = params.keyword;
+  const pagenumber = params.pagenumber;
   return (
     <div>
       <Header />
-      {/* <ShopSection keyword={keyword} pagenumber={pagenumber} /> */}
-      {/* <CalltoActionSection /> */}
-      {/* <ContactInfo /> */}
-      {/* <Footer /> */}
+      <ShopSection keyword={keyword} pagenumber={pagenumber} />
+      <CallToActionSection />
+      <ContactInfo />
+      <Footer />
     </div>
   );
 };

@@ -55,8 +55,6 @@ export const register = createAsyncThunk(
 
       return fulfillWithValue(data);
     } catch (error) {
-      console.log(error);
-
       return rejectWithValue(error.response.data.message);
     }
   }

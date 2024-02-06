@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../Redux/slices/logoutSlice";
+import { logout } from "../Redux/slices/userSlice/logoutSlice";
 
 const Header = () => {
   const [keyword, setKeyword] = useState();
