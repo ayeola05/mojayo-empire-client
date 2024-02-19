@@ -12,8 +12,8 @@ const ShopSection = (props) => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
+
   const { loading, error, products, page, pages } = productList;
-  console.log(products);
 
   useEffect(() => {
     dispatch(listProducts({ keyword, pagenumber }));
@@ -54,7 +54,7 @@ const ShopSection = (props) => {
 
                             <Rating
                               value={product.rating}
-                              text={`${product.numReviews} reviews`}
+                              text={`${product.numOfReviews} reviews`}
                             />
                             <h3>${product.price}</h3>
                           </div>

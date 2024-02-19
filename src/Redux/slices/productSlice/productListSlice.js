@@ -37,10 +37,11 @@ export const listProducts = createAsyncThunk(
     { rejectWithValue, fulfillWithValue }
   ) => {
     try {
-      console.log(keyword, pageNumber);
       const { data } = await axios.get(
-        `http://localhost:4000/product/getProducts?keyword=${keyword}&pageNumber=${pageNumber}`
+        `http://localhost:4000/product/getProducts`
       );
+
+      // http://localhost:4000/product/getProducts?keyword=${keyword}&pageNumber=${pageNumber}
 
       return fulfillWithValue(data);
     } catch (error) {

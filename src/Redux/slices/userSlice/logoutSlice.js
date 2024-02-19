@@ -15,7 +15,7 @@ export const logoutSlice = createSlice({
 export const logout = createAsyncThunk(
   "logout/logout",
   async (_, { dispatch }) => {
-    dispatch(login.fulfilled(null));
+    dispatch(login.fulfilled(""));
     //   dispatch({ type: USER_DETAILS_RESET });
     // dispatch({ type: ORDER_LIST_MY_RESET });
   }

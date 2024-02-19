@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { useSelector } from "react-redux";
+import { logout } from "./logoutSlice";
 
 const initialState = {
   user: {},
@@ -7,25 +9,16 @@ const initialState = {
   error: "",
 };
 
-// export const userDetailsReducer = (state = { user: {} }, action) => {
-//   switch (action.type) {
-//     case USER_DETAILS_REQUEST:
-//       return { ...state, loading: true };
-//     case USER_DETAILS_SUCCESS:
-//       return { loading: false, user: action.payload };
-//     case USER_DETAILS_FAIL:
-//       return { loading: false, error: action.payload };
-//     case USER_DETAILS_RESET:
-//       return { user: {} };
-//     default:
-//       return state;
-//   }
-// };
-
 export const userDetailsSlice = createSlice({
   name: "userDetails",
   initialState,
-  reducers: {},
+  reducers: {
+    userDetailReset: (state) => {
+      state.user = {};
+      state.loading = false;
+      state.error = "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUserDetails.pending, (state) => {
@@ -42,7 +35,7 @@ export const userDetailsSlice = createSlice({
 
 export const getUserDetails = createAsyncThunk(
   "userDetails/getUserDetails",
-  async (_, { dispatch, getState }) => {
+  async (_, { dispatch, getState, fulfillWithValue, rejectWithValue }) => {
     try {
       const {
         login: { userInfo },
@@ -54,39 +47,22 @@ export const getUserDetails = createAsyncThunk(
         },
       };
 
-      const { data } = await axios.get(`http://localhost:4000/users/${id}`);
-    } catch (error) {}
+      const { data } = await axios.get(
+        `http://localhost:4000/user/profile`,
+        config
+      );
+
+      return fulfillWithValue(data);
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.message === "Unauthorized") {
+        dispatch(logout.fulfilled());
+      }
+      return rejectWithValue(error.response.data.message);
+    }
   }
 );
 
-// export const getUserDetails = (id) => async (dispatch, getState) => {
-//   try {
-//     dispatch({ type: USER_DETAILS_REQUEST });
-//     const {
-//       userLogin: { userInfo },
-//     } = getState();
-
-//     const config = {
-//       headers: {
-//         Authorization: `Bearer ${userInfo.token}`,
-//       },
-//     };
-
-//     const { data } = await axios.get(`/api/users/${id}`, config);
-//     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message;
-//     if (message === "Not authorized, token failed") {
-//       dispatch(logout());
-//     }
-//     dispatch({
-//       type: USER_DETAILS_FAIL,
-//       payload: message,
-//     });
-//   }
-// };
+export const { userDetailReset } = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;

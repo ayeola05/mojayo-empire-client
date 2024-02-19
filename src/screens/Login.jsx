@@ -40,8 +40,8 @@ const Login = ({ location, history }) => {
     e.preventDefault();
 
     if (!email.includes("@") && !password.length >= 6) return;
-    dispatch(getUserDetails("1"));
     dispatch(login({ email, password }));
+    // dispatch(getUserDetails("1"));
   };
 
   return (

@@ -51,7 +51,7 @@ export const register = createAsyncThunk(
         config
       );
 
-      dispatch(login.fulfilled({ payload: data }));
+      dispatch(login.fulfilled(data));
 
       return fulfillWithValue(data);
     } catch (error) {
