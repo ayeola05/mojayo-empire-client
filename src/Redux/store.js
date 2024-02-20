@@ -9,6 +9,7 @@ import listMyOrderReducer from "./slices/orderSlice/listMyOrderSlice";
 import updateUserProfileReducer from "./slices/userSlice/updateUserProfileSlice";
 import productDetailsReducer from "./slices/productSlice/productDetailsSlice";
 import productReviewReducer from "./slices/productSlice/createProductReviewSlice";
+import cartReducer from "./slices/cartSlice/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     updateUserProfile: updateUserProfileReducer,
     productDetails: productDetailsReducer,
     productReview: productReviewReducer,
+    cart: cartReducer,
   },
 });

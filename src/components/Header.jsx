@@ -8,8 +8,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate;
 
-  //   const cart = useSelector((state) => state.cart);
-  //   const { cartItems } = cart;
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
   const userLogin = useSelector((state) => state.login);
   const { userInfo } = userLogin;
@@ -116,8 +116,7 @@ const Header = () => {
 
                   <Link to="/cart" className="cart-mobile-icon">
                     <i className="fas fa-shopping-bag"></i>
-                    {/* TODO: Cart item length */}
-                    {/* <span className="badge">{cartItems.length}</span> */}
+                    <span className="badge">{cartItems.length}</span>
                   </Link>
                 </div>
                 <div className="col-12 d-flex align-items-center">
@@ -193,8 +192,7 @@ const Header = () => {
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
-                  {/* {cartItems.length} */}
-                  <span className="badge">0</span>
+                  <span className="badge">{cartItems.length}</span>
                 </Link>
               </div>
             </div>

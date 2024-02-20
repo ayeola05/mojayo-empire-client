@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { logout } from "../userSlice/logoutSlice";
+import { cartClearItems } from "../cartSlice/cartSlice";
 
 const initialState = {
   loading: false,
@@ -28,7 +29,7 @@ export const createOrderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         (state.loading = false),
           (state.success = true),
-          (order = action.payload);
+          (state.order = action.payload);
         localStorage.removeItem("cartItems");
       })
       .addCase(createOrder.rejected, (state, action) => {
@@ -41,6 +42,7 @@ export const createOrder = createAsyncThunk(
   "createOrder/createOrder",
   async (order, { fulfillWithValue, rejectWithValue, getState, dispatch }) => {
     try {
+      console.log(order);
       const {
         login: { userInfo },
       } = getState();
@@ -53,14 +55,14 @@ export const createOrder = createAsyncThunk(
       };
 
       const { data } = await axios.post(
-        "`http://localhost:4000/order`",
+        "http://localhost:4000/order",
         order,
         config
       );
-      //dispatch CART_CLEAR_ITEMS
+      dispatch(cartClearItems());
       return fulfillWithValue(data);
     } catch (error) {
-      if ((error.response.data.message = "Unauthorized")) {
+      if (error.response.data.message === "Unauthorized") {
         dispatch(logout.fulfilled());
       }
       return rejectWithValue(error.response.data.message);
